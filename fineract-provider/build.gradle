@@ -343,7 +343,7 @@ tasks.jibDockerBuild.dependsOn(bootJar)
 // Configuration for git properties gradle plugin
 // https://github.com/n0mer/gradle-git-properties
 gitProperties {
-    gitPropertiesResourceDir = file("$buildDir/classes/java/main")
+    // gitPropertiesResourceDir = file("$buildDir/classes/java/main")
     dateFormat = "yyyy-MM-dd'T'HH:mmZ"
     dateFormatTimeZone = "GMT"
     failOnNoGitDirectory = false

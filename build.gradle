@@ -277,6 +277,11 @@ allprojects  {
             "**/generated/**/*MapperImpl.java"
         ]
     }
+    normalization {
+        runtimeClasspath {
+            ignore 'git.properties'
+        }
+    }
 }
 
 // NOTE: dynamically load all custom modules
