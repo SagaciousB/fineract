@@ -316,8 +316,8 @@ configure(project.fineractJavaProjects) {
     targetCompatibility = JavaVersion.VERSION_17
 
     /* http://stackoverflow.com/questions/19653311/jpa-repository-works-in-idea-and-production-but-not-in-gradle */
-    sourceSets.main.output.resourcesDir = sourceSets.main.java.classesDirectory
-    sourceSets.test.output.resourcesDir = sourceSets.test.java.classesDirectory
+    // sourceSets.main.output.resourcesDir = sourceSets.main.java.classesDirectory
+    // sourceSets.test.output.resourcesDir = sourceSets.test.java.classesDirectory
 
     configurations {
         implementation.setCanBeResolved(true)
