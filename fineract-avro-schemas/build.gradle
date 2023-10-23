@@ -26,15 +26,11 @@ apply plugin: 'com.github.davidmc24.gradle.plugin.avro-base'
 
 apply from: 'dependencies.gradle'
 
-task preprocessAvroSchemas() {
-    doLast {
-        copy {
-            from "$projectDir/src/main/avro"
-            into "$buildDir/generated/avro/src/main/avro"
-            filter { line ->
-                line.replaceAll("\"bigdecimal\"", new File("$projectDir/src/main/resources/avro-templates/bigdecimal.avsc").getText("UTF-8"))
-            }
-        }
+tasks.register("preprocessAvroSchemas", Copy) {
+    from ("$projectDir/src/main/avro")
+    into "$buildDir/generated/avro/src/main/avro"
+    filter { line ->
+            line.replaceAll("\"bigdecimal\"", new File("$projectDir/src/main/resources/avro-templates/bigdecimal.avsc").getText("UTF-8"))
     }
 }
 
