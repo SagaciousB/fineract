@@ -22,22 +22,23 @@ import com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask
 // TODO: @vidakovic we should publish this lib to Maven Central; do in separate PR
 description = 'Fineract Avro Schemas'
 
+// Maintainer is retiring!! https://github.com/davidmc24/gradle-avro-plugin
 apply plugin: 'com.github.davidmc24.gradle.plugin.avro-base'
 
 apply from: 'dependencies.gradle'
 
 tasks.register("preprocessAvroSchemas", Copy) {
-    from ("$projectDir/src/main/avro")
-    into "$buildDir/generated/avro/src/main/avro"
+    from layout.projectDirectory.dir("src/main/avro")
+    into layout.buildDirectory.dir("generated/avro/src/main/avro")
     filter { line ->
-            line.replaceAll("\"bigdecimal\"", new File("$projectDir/src/main/resources/avro-templates/bigdecimal.avsc").getText("UTF-8"))
+        line.replaceAll("\"bigdecimal\"", new File("$projectDir/src/main/resources/avro-templates/bigdecimal.avsc").getText("UTF-8"))
     }
 }
 
 task buildJavaSdk(type: GenerateAvroJavaTask) {
-    source("$buildDir/generated/avro/src/main/avro")
-    outputDir = file("$buildDir/generated/java/src/main/java")
-    templateDirectory = "$projectDir/src/main/resources/avro-generator-templates/"
+    source(layout.buildDirectory.dir("generated/avro/src/main/avro"))
+    outputDir = layout.buildDirectory.dir("generated/java/src/main/java")
+    templateDirectory = layout.projectDirectory.dir("src/main/resources/avro-generator-templates").toString() + "/"
 }
 
 spotless {
@@ -70,7 +71,7 @@ test {
     useJUnitPlatform()
 }
 
-sourceSets.main.java.srcDir new File(buildDir, "generated/java/src/main/java")
+sourceSets.main.java.srcDir layout.buildDirectory.dir("generated/java/src/main/java")
 
 licenseFormatMain.dependsOn buildJavaSdk
 licenseMain.dependsOn licenseFormatMain
