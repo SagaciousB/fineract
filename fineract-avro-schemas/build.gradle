@@ -41,6 +41,8 @@ task buildJavaSdk(type: GenerateAvroJavaTask) {
     templateDirectory = layout.projectDirectory.dir("src/main/resources/avro-generator-templates").toString() + "/"
 }
 
+buildScan.value "AvroTemplateDirectory", tasks.named('buildJavaSdk').get().templateDirectory.get().toString()
+
 spotless {
     json {
         target '**/*.avsc' // TODO: include generated AVSCs as well
